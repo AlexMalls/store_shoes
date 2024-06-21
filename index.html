@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORE Shoes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <style>
+        .highlight {
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            transition: border-color 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>STORE Shoes</h1>
+            <nav>
+                <ul>
+                    <li><a href="#sobre-a-loja">Sobre a loja</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                </ul>
+                <form id="search-form">
+                    <input type="search" id="search-input" placeholder="Busque um produto" aria-label="Buscar produto">
+                    <button type="submit">Pesquisar</button>
+                </form>
+            </nav>
+        </div>
+    </header>
+    <section id="sobre-a-loja">
+        <div class="container sobre-a-loja">
+            <img src="/images/shoes store.jpg" alt="Interno da Loja">
+            <div>
+                <h2>Sobre a loja</h2>
+                <p>A SHOES oferece uma variedade de tênis e sapatos de alta qualidade, combinando estilo, conforto e durabilidade. Trabalhamos com as melhores marcas do mercado para atender a atletas e entusiastas da moda.</p>
+                <p>Nosso atendimento ao cliente é excepcional, com uma equipe dedicada e apaixonada por calçados, pronta para ajudar na escolha do produto ideal. Seja em nossa loja física ou online, garantimos uma experiência de compra agradável e satisfatória.</p>
+            </div>       
+        </div>
+    </section>
+    <section id="produtos">
+        <div class="container">
+            <h2>Produtos</h2>
+        </div>
+        <div class="container produtos">
+            <ul id="product-list">
+                <li>
+                    <img src="/images/tenis01.webp" alt="Tênis Olympikus">
+                    <h3>Tênis Olympikus Citrus 2 Feminino</h3>
+                    <p>Tênis Feminino Olympikus, disponível nos tamanhos: 36, 37, 38, 39 e 40</p>
+                    <button type="button" class="add-to-cart">Adicionar ao carrinho</button>
+                </li>
+                <li>
+                    <img src="/images/tenis02.webp" alt="Tênis Lacoste">
+                    <h3>Tênis Lacoste Europa Pro Masculino</h3>
+                    <p>Tênis Lacoste Europa Pro, disponível nos tamanhos: 37, 38, 39, 40 e 41</p>
+                    <button type="button" class="add-to-cart">Adicionar ao carrinho</button>
+                </li>
+                <li>
+                    <img src="/images/tenis03.webp" alt="Tênis Puma">
+                    <h3>Tênis Puma Flyer Runner Mesh BDP Feminino</h3>
+                    <p>Flyer Mesh BDP Feminino, disponível nos tamanhos: 36, 37, 38, 39 e 40</p>
+                    <button type="button" class="add-to-cart">Adicionar ao carrinho</button>
+                </li>
+                <li>
+                    <img src="/images/tenis04.webp" alt="Tênis Asics">
+                    <h3>Tênis Asics Gel-Impression 11 Masculino</h3>
+                    <p>Asics Gel-Impression 11, disponível nos tamanhos: 37, 38, 39, 40 e 41</p>
+                    <button type="button" class="add-to-cart">Adicionar ao carrinho</button>
+                </li>
+            </ul>
+        </div>
+    </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchForm = document.getElementById('search-form');
+        const searchInput = document.getElementById('search-input');
+        const productList = document.getElementById('product-list');
+
+        searchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            if (searchTerm === '') {
+                return;
+            }
+            searchInput.value = '';
+            let found = false;
+            Array.from(productList.getElementsByTagName('li')).forEach(product => {
+                const productTitle = product.querySelector('h3').innerText.toLowerCase();
+                const searchTerms = searchTerm.split(' ');
+                const allTermsFound = searchTerms.every(term => productTitle.includes(term));
+
+                if (allTermsFound) {
+                    found = true;
+                    product.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    product.classList.add('highlight');
+                    setTimeout(() => {
+                        product.classList.remove('highlight');
+                    }, 1000);
+                    return;
+                }
+            });
+            if (!found) {
+                alert('Produto não encontrado.');
+            }
+        });
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Produto adicionado ao carrinho.');
+            });
+        });
+    });
+</script>
+</body>
+</html>
